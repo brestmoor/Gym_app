@@ -11,5 +11,5 @@ class PartialGoal(models.Model):
 
 
 class GoalRecord(models.Model):
-    time = models.DateTimeField
-    value = models.FloatField
+    time = models.DateTimeField()
+    value = models.FloatField()

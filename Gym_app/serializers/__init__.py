@@ -1,1 +1,1 @@
-from goal_serializers import GoalSerializer
+from .goal_serializers import GoalSerializer

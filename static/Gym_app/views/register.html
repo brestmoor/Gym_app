@@ -1,0 +1,30 @@
+<div class="col-md-6 col-md-offset-3" ng-controller="registrationController">
+
+
+    <form name="registerForm" ng-submit="submitForm()">
+        <div class="form-group">
+            <label for="name">Imię</label>
+            <input type="text" name="name" class="form-control" ng-model="form.name" id="name" required>
+            <span ng-show="registerForm.name.$touched && registerForm.name.$invalid">The name is required.</span>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Nazwisko</label>
+            <input type="text" name="lastName" class="form-control" ng-model="form.lastName" id="lastName" required>
+            <span ng-show="registerForm.lastName.$touched && registerForm.lastName.$invalid">The last name is required.</span>
+        </div>
+        <div class="form-group">
+            <label for="password">Hasło</label>
+            <input type="password" name="password" class="form-control" ng-model="form.password" id="password" required>
+            <span ng-show="registerForm.password.$touched && registerForm.password.$invalid">The password is required.</span>
+        </div>
+        <div class="form-group">
+            <label for="email">email</label>
+            <input type="text" name="email" class="form-control" ng-model="form.email" id="email" required>
+            <span ng-show="registerForm.email.$touched && registerForm.email.$invalid">The email is required.</span>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="button" ng-click="openDialog()">LALA</button>
+
+    </form>
+</div>
+

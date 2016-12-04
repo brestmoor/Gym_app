@@ -13,8 +13,8 @@ class WorkoutDay(models.Model):
 class Exercise(models.Model):
     workout_day = models.ForeignKey(WorkoutProgram, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
-    description = models.TextField
-    url = models.URLField
+    description = models.TextField()
+    url = models.URLField()
 
 
 class WorkoutProgramTemplate(WorkoutProgram):

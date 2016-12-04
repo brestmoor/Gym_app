@@ -28,7 +28,9 @@ urlpatterns = [
     # url(r'^goals/$', views.GoalsListView.as_view()),
     # url(r'^goals/(?P<pk>[0-9])/$', views.GoalsSingleView.as_view())
     url(r'^', include(router.urls)),
-    url(r'^home/', views.HomePageView.as_view()),
+    url(r'^schedule/$', views.HomePageView.as_view()),
     url(r'^classes/', views.GoalsListView.as_view()),
-    url(r'^week/days', views.DayOfWeekNamesView.as_view())
+    url(r'^schedule/days$', views.DayOfWeekNamesView.as_view()),
+    url(r'^schedule/classes$', views.ScheduleView.as_view()),
+    url(r'^users$', views.UserView.as_view())
 ]

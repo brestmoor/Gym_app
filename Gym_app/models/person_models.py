@@ -1,9 +1,9 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 
 
 class Member(User):
-    registrationDate = models.DateTimeField()
+    registrationDate = models.DateTimeField(auto_now_add=True, blank=True)
 
     def get_short_name(self):
         return self.first_name

@@ -7,9 +7,9 @@
 
     <title>Home Page</title>
     <link href="/static/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/Gym_app/css/basic_styles.css" rel="stylesheet">
+    <link href="/static/Gym_app/styles/basic_styles.css" rel="stylesheet">
 </head>
-<body>
+<body ng-app="schedule">
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -24,7 +24,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Grafik</a></li>
+                <li class="active"><a href="#/">Grafik</a></li>
                 <li><a href="#karnet">Karnet</a></li>
             </ul>
             <form class="navbar-form navbar-right">
@@ -35,6 +35,9 @@
                     <input type="password" placeholder="Password" class="form-control">
                 </div>
                 <button type="submit" class="btn btn-success">Sign in</button>
+                <a href="#register">
+                    <button type="button" class="btn btn-success">Register</button>
+                </a>
             </form>
         </div><!--/.navbar-collapse -->
     </div>
@@ -43,180 +46,26 @@
 <br>
 <br>
 <br>
-<div class="container">
-    <table class="table">
-        <thead>
-        <tr>
-            <th class="col-md-1 col-md-offset-1"></th>
-            <th class="col-md-1 day">Poniedziałek</th>
-            <th class="col-md-1 day">Wtorek</th>
-            <th class="col-md-1 day">Środa</th>
-            <th class="col-md-1 day">Czwartek</th>
-            <th class="col-md-1 day">Piątek</th>
-            <th class="col-md-1 day">Sobota</th>
-            <th class="col-md-1 col-md-offset-1 day">Niedziela</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>
-                9:00
-            </td>
-            <td>
-                <div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Zumba
-                        </div>
-                        <div class="panel-body">
-                            Godzina
-                        </div>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Zumba
-                    </div>
-                    <div class="panel-body">
-                        Godzina
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Zumba
-                    </div>
-                    <div class="panel-body">
-                        Godzina
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Zumba
-                    </div>
-                    <div class="panel-body">
-                        Godzina
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Zumba
-                    </div>
-                    <div class="panel-body">
-                        Godzina
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Zumba
-                    </div>
-                    <div class="panel-body">
-                        Godzina
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Zumba
-                    </div>
-                    <div class="panel-body">
-                        Godzina
-                    </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                10:00
-            </td>
-            <td>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Zumba
-                    </div>
-                    <div class="panel-body">
-                        Godzina
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Zumba
-                    </div>
-                    <div class="panel-body">
-                        Godzina
-                    </div>
-                </div>
-            </td>
-            <td>    <script src="/static/lib/jquery-3.1.1.js"></script>
+<br>
+<!--  !!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Zumba
-                    </div>
-                    <div class="panel-body">
-                        Godzina
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Zumba
-                    </div>
-                    <div class="panel-body">
-                        Godzina
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Zumba
-                    </div>
-                    <div class="panel-body">
-                        Godzina
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Zumba
-                    </div>
-                    <div class="panel-body">
-                        Godzina
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Zumba
-                    </div>
-                    <div class="panel-body">
-                        Godzina
-                    </div>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <a href="#">link to pop up</a>
+<div class="container">
+    <div ng-view>
+    </div>
 </div>
+<!--  !!!!!!!!!!!!!!!!!!!!!!!!!! -->
 <script src="/static/lib/jquery-3.1.1.js"></script>
 <script src="/static/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-<script src="/static/Gym_app/js/page_load.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js"></script>
+<script src="/static/Gym_app/scripts/app.js"></script>
+<script src="/static/lib/ui-bootstrap-tpls-2.2.0.js"></script>
+<script src="/static/Gym_app/scripts/registration/registrationApp.js"></script>
+<script src="/static/Gym_app/scripts/schedule/scheduleApp.js"></script>
+<script src="/static/Gym_app/scripts/schedule/scheduleController.js"></script>
+<script src="/static/Gym_app/scripts/schedule/scheduleHead.js"></script>
+<script src="/static/Gym_app/scripts/schedule/day.js"></script>
+<script src="/static/Gym_app/scripts/schedule/scheduleBody.js"></script>
+<script src="/static/Gym_app/scripts/registration/registrationController.js"></script>
 </body>
 </html>
