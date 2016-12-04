@@ -3,7 +3,7 @@
  */
 
 registration
-    .controller('registrationController', function ($http, $scope, $window, $log, $uibModal) {
+    .controller('registrationController', function ($http, $scope, $window) {
         $scope.submitForm = function () {
             $http({
                 method: 'POST',
@@ -18,11 +18,5 @@ registration
                 }
             )
         };
-
-        $scope.openDialog = function () {
-            var modelInstance = $uibModal.open({
-                templateUrl: '/static/Gym_app/views/modalLogin.html'
-            })
-        };
-
-    });
+    })
+;

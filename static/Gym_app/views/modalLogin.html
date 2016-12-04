@@ -1,7 +1,24 @@
 <!DOCTYPE html>
-<div class="modal-header">
-    LALALA
-</div>
-<div class="modal-body">
-    Hi i am a modal
+<div ng-controller="loginCtrl as $ctrl">
+    <div class="modal-header">
+        Zaloguj się
+    </div>
+    <form name="loginForm" ng-submit="$ctrl.logIn()">
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" name="email" ng-model="$ctrl.data.email" class="form-control" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" ng-model="$ctrl.data.password" class="form-control" id="password"
+                       required>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Zaloguj</button>
+            <button class="btn btn-default">Anuluj</button>
+        </div>
+    </form>
+
 </div>

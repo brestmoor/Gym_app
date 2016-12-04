@@ -11,11 +11,10 @@ schedule
             '<div ng-if="class != null ">' +
             '<div class="panel panel-default">' +
             '<div class="panel-heading text-center">{{class.class_in_schedule.class_type.name}}</div>' +
-            '<div class="panel-body text-center"><button type="button" class="btn btn-default no-margin-bottom">Zapisz się</button></div>' +
+            '<div class="panel-body text-center"><button type="button" ng-click="openDialog()">LALA</button></div>' +
             '</div>' +
             '</div>' +
             '</td>' +
             '</tr>'
-
         }
     });

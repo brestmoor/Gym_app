@@ -13,7 +13,7 @@ angular.module('myApp', [])
                     el.html(val += incr);
                     $log.log(val);
                 });
-            }
+            }//el.bind do odpowiedniej funkcji ze scopa po wywolaniu starej?
         };
     });
 
