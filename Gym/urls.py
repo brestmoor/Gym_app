@@ -32,5 +32,6 @@ urlpatterns = [
     url(r'^classes/', views.GoalsListView.as_view()),
     url(r'^schedule/days$', views.DayOfWeekNamesView.as_view()),
     url(r'^schedule/classes$', views.ScheduleView.as_view()),
-    url(r'^users$', views.UserView.as_view())
+    url(r'^users$', views.UserView.as_view()),
+    url(r'^session$', views.SessionView.as_view())
 ]

@@ -2,6 +2,7 @@
 
 import json
 
+from django.contrib.auth import authenticate, login
 from django.core.exceptions import ValidationError
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -65,3 +66,15 @@ class UserView(APIView):
         user_dao = UserDao()
         user_dao.insert(request.data)
         return HttpResponseRedirect('/schedule', status=status.HTTP_201_CREATED)
+
+
+class SessionView(APIView):
+    def post(self, request, format=None):
+        email = request.data['email']
+        password = request.data['password']
+        user = authenticate(username=email, password=password)
+        if user is not None:
+            login(request, user)
+            return HttpResponse(json.dumps({'name': user.first_name, 'lastName': user.last_name}), status=status.HTTP_200_OK)
+        else:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)

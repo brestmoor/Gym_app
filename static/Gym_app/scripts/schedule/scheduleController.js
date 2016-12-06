@@ -3,7 +3,7 @@
  */
 
 schedule
-    .controller('scheduleController', function ($http, $scope, $log, offsetService, loginModalService) {
+    .controller('scheduleController', function ($http, $scope, $log, offsetService, loginModalService, uiVersionService, joinClassService) {
         $scope.data = {};
         $http.get('http://localhost:8000/schedule/days')
             .then(function (response) {
@@ -15,8 +15,10 @@ schedule
                 $scope.data.classes = angular.fromJson(response.data);
             })
 
-        $scope.openDialog = loginModalService.open
+        $scope.openLoginDialog = loginModalService.open;
+        $scope.joinClass = joinClassService.join();
 
+        $scope.uiVersionService = uiVersionService;
 
     })
     .service('offsetService', function () {
@@ -29,7 +31,9 @@ schedule
         }
     })
     .service('joinClassService', function () {
+        this.join = function () {
 
+        }
     })
     .service('loginModalService', ['$uibModal', function (uibModal) {
         this.open = function () {
@@ -37,4 +41,7 @@ schedule
                 templateUrl: '/static/Gym_app/views/modalLogin.html'
             })
         };
-    }]);
+    }])
+
+
+;
