@@ -1,20 +1,21 @@
 /**
- * Created by Filip on 04.12.2016.
+ * Created by Filip on 11.12.2016.
  */
 
-schedule.directive('joinButton', function () {
+
+schedule.directive('resignButton', function () {
     return {
         replace: true,
         scope: {
-            joinClass: '&joinClass',
+            cancelClass: '&cancelClass',
             userClasses: '=userClasses',
             classId: '@classId',
             storage: '=storage',
             attendees: '=attendees'
         },
-        template: '<button type="button" ng-show="storage.userData.isLoggedIn && storage.userData.isValidMember && !doesBelongToUserClasses" class="btn btn-default">{{joinButtonText}}</button>',
+        template: '<button type="button" ng-show="storage.userData.isLoggedIn && storage.userData.isValidMember && doesBelongToUserClasses" class="btn btn-success" autofocus="true">{{resignButtonText}}</button>',
         link: function (scope, el, attrs) {
-            scope.joinButtonText = "Zapisz się";
+            scope.resignButtonText = "Wypisz się";
             scope.doesBelongToUserClasses = false;
             scope.$watchCollection('userClasses', function (newValue, oldValue) {
                 if (newValue === undefined)
@@ -27,14 +28,14 @@ schedule.directive('joinButton', function () {
                 }
             });
             el.bind('click', function () {
-                scope.joinClass().then(function (response) {
-                    console.log("zapisuje");
+                scope.cancelClass().then(function (response) {
+                    console.log("wypisuję");
                     scope.userClasses = response.data.classes;
                     scope.attendees = response.data.attendees
                 }, function () {
-                    alert("Nie udalo sie zapisac")
+                    alert("Nie udalo sie wypisać")
                 });
             })
         }
     }
-})
+});

@@ -25,6 +25,7 @@
     </schema>
     <schema id="8" parent="1" name="public">
       <object-id>33297</object-id>
+      <visible>1</visible>
     </schema>
   </database-model>
 </dataSource>

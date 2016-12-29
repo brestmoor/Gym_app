@@ -31,7 +31,11 @@ urlpatterns = [
     url(r'^schedule/$', views.HomePageView.as_view()),
     url(r'^classes/', views.GoalsListView.as_view()),
     url(r'^schedule/days$', views.DayOfWeekNamesView.as_view()),
-    url(r'^schedule/classes$', views.ScheduleView.as_view()),
+    url(r'^schedule/classes$', views.GroupClassesScheduleView.as_view()),
+    url(r'^personalTraining/trainings$', views.PersonalTrainingsScheduleView.as_view()),
+    url(r'^personalTraining/trainings/([0-9]+)/attendee$', views.TrainingAttendanceView.as_view()),
+    url(r'^schedule/classes/([0-9]+)/attendees$', views.ClassAttendanceView.as_view()),
+    url(r'^member/classes/', views.MyClassesView.as_view()),
     url(r'^users$', views.UserView.as_view()),
     url(r'^session$', views.SessionView.as_view())
 ]

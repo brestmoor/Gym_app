@@ -1,5 +1,6 @@
 from django.db import models
 
+from Gym_app.models import Instructor
 from Gym_app.models import Member
 
 
@@ -9,6 +10,7 @@ class ClassInformation(models.Model):
 
 
 class ClassInSchedule(models.Model):
+    trainer = models.ForeignKey(Instructor)
     day = models.CharField(max_length=50)
     start_time = models.TimeField()
     end_time = models.TimeField()
@@ -16,6 +18,16 @@ class ClassInSchedule(models.Model):
 
 
 class Class(models.Model):
-    attendees = models.ManyToManyField(Member)
-    date = models.DateField()
     class_in_schedule = models.ForeignKey(ClassInSchedule, null=True, blank=True)
+    date = models.DateField()
+
+    class Meta:
+        abstract = True
+
+
+class GroupClass(Class):
+    attendees = models.ManyToManyField(Member)
+
+
+class PersonalTraining(Class):
+    attendee = models.ForeignKey(Member, null=True)

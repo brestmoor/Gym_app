@@ -5,3 +5,34 @@
 .bottom-spaced {
     margin-bottom: 4%;
 }
+
+th.day-name {
+    width: 13.5%;
+    text-align: center;
+    padding-bottom: 4px;
+}
+
+th.hour {
+    padding-bottom: 4px;
+}
+
+tr.schedule-row {
+    height: 126px;
+}
+
+.table-container {
+    overflow: hidden;
+    width: auto;
+}
+
+.table-container-inner {
+    overflow-x: auto;
+}
+
+.icon-green {
+    color: #5CB85C;
+}
+
+div.red-border {
+    border: 1px solid red;
+}

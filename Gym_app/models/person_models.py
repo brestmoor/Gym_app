@@ -9,7 +9,7 @@ class Member(User):
         return self.first_name
 
     def get_full_name(self):
-        return self.last_name
+        return self.first_name, self.last_name
 
 
 class Instructor(User):
@@ -17,7 +17,7 @@ class Instructor(User):
         return self.first_name
 
     def get_full_name(self):
-        return self.last_name
+        return self.first_name, self.last_name
 
 
 class Manager(User):
@@ -25,4 +25,4 @@ class Manager(User):
         return self.first_name
 
     def get_full_name(self):
-        return self.last_name
+        return self.first_name, self.last_name

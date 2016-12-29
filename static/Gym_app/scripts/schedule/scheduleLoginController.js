@@ -3,15 +3,18 @@
  */
 
 
-schedule.controller('scheduleLoginCtrl', function (loginService) {
+schedule.controller('scheduleLoginCtrl', function ($scope, loginService) {
     var $ctrl = this;
     $ctrl.data = {};
 
     $ctrl.logIn = function () {
-        loginService.logIn($ctrl.data)
-        console.log($ctrl.data)
+        loginService.logIn($ctrl.data).then(function () {
+            alert('ok')
+        }, function (error) {
+            alert(error)
+        })
     };
     $ctrl.logOut = function () {
-        sessionDataService.logOut()
+        loginService.logOut()
     }
 });

@@ -4,7 +4,7 @@
 //
 //
 // $(document).ready(function () {
-//     loadDaysOfTheWeek()
+//     getDaysOfTheWeek()
 // });
 //
 // var loadWeekSchedule = function () {
@@ -19,7 +19,7 @@
 //     })
 // }
 //
-// var loadDaysOfTheWeek = function () {
+// var getDaysOfTheWeek = function () {
 //     $.ajax({
 //         url: "http://localhost:8000/week/days",
 //         type: "GET",

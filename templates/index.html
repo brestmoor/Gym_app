@@ -9,7 +9,7 @@
     <link href="/static/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/Gym_app/styles/basic_styles.css" rel="stylesheet">
 </head>
-<body ng-app="schedule">
+<body ng-app="gymApp">
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -24,21 +24,30 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#/">Grafik</a></li>
+                <li class="active"><a ui-sref="schedule">Grafik</a></li>
                 <li><a href="#karnet">Karnet</a></li>
             </ul>
-            <form class="navbar-form navbar-right">
-                <div class="form-group">
-                    <input type="text" placeholder="Email" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input type="password" placeholder="Password" class="form-control">
-                </div>
-                <button type="submit" class="btn btn-success">Sign in</button>
-                <a href="#register">
-                    <button type="button" class="btn btn-success">Register</button>
-                </a>
-            </form>
+            <div ng-controller="navbarLoginCtrl as $ctrl" ng-if="!storage.userData.isLoggedIn">
+                <form class="navbar-form navbar-right" ng-submit="$ctrl.logIn()">
+                    <div class="form-group">
+                        <input type="text" placeholder="Email" class="form-control" ng-model="$ctrl.data.email">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" placeholder="Password" class="form-control"
+                               ng-model="$ctrl.data.password">
+                    </div>
+                    <button type="submit" class="btn btn-success">Sign in</button>
+                    <a ui-sref="register">
+                        <button type="button" class="btn btn-success">Register</button>
+                    </a>
+                </form>
+            </div>
+            <div class="navbar-right" ng-if="storage.userData.isLoggedIn">
+                <ul class="nav navbar-nav">
+                    <li><a href="#/personalTraining"></a></li>
+                    <li><a ui-sref="personalTraining"><i class="glyphicon glyphicon-user icon-green"></i></a></li>
+                </ul>
+            </div>
         </div><!--/.navbar-collapse -->
     </div>
 </nav>
@@ -50,7 +59,7 @@
 <!--  !!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
 <div class="container">
-    <div ng-view>
+    <div ui-view>
     </div>
 </div>
 <!--  !!!!!!!!!!!!!!!!!!!!!!!!!! -->
@@ -58,19 +67,26 @@
 <script src="/static/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
 <script src="/static/lib/ui-bootstrap-tpls-2.2.0.js"></script>
+<script src="/static/lib/ngStorage.js"></script>
+<script src="/static/Gym_app/scripts/utils/utils.js"></script>
 <script src="/static/Gym_app/scripts/app.js"></script>
 <script src="/static/Gym_app/scripts/registration/registrationApp.js"></script>
 <script src="/static/Gym_app/scripts/session/sessionApp.js"></script>
-<script src="/static/Gym_app/scripts/session/sessionDataService.js"></script>
-<script src="/static/Gym_app/scripts/session/userInformationService.js"></script>
-<script src="/static/Gym_app/scripts/session/uiVersionService.js"></script>
 <script src="/static/Gym_app/scripts/session/loginService.js"></script>
 <script src="/static/Gym_app/scripts/schedule/scheduleApp.js"></script>
+<script src="/static/Gym_app/scripts/navbar/navbarLoginCtrl.js"></script>
+<script src="/static/Gym_app/scripts/schedule/joinButton.js"></script>
+<script src="/static/Gym_app/scripts/schedule/resignButton.js"></script>
 <script src="/static/Gym_app/scripts/schedule/scheduleLoginController.js"></script>
 <script src="/static/Gym_app/scripts/schedule/scheduleController.js"></script>
 <script src="/static/Gym_app/scripts/schedule/scheduleHead.js"></script>
 <script src="/static/Gym_app/scripts/schedule/scheduleBody.js"></script>
 <script src="/static/Gym_app/scripts/registration/registrationController.js"></script>
+<script src="/static/Gym_app/scripts/personalTraining/personalTrainingApp.js"></script>
+<script src="/static/Gym_app/scripts/personalTraining/personalScheduleCtrl.js"></script>
+<script src="/static/Gym_app/scripts/personalTraining/joinTrainingButton.js"></script>
+<script src="/static/Gym_app/scripts/personalTraining/cancelTrainingButton.js"></script>
 </body>
 </html>

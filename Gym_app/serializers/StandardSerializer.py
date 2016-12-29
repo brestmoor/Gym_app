@@ -1,7 +1,7 @@
 from datetime import date, time
 
 
-class DateSerializer:
+class CustomSerializer:
     def serialize(obj):
         """JSON serializer for objects not serializable by default json code"""
 
@@ -12,3 +12,5 @@ class DateSerializer:
         if isinstance(obj, time):
             serial = obj.isoformat()
             return serial
+
+        return obj.__dict__

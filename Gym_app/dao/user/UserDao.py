@@ -12,4 +12,4 @@ class UserDao:
         return Member.objects.filter(first_name=name, last_name=last_name)
 
     def get_by_email(self, email):
-        return Member.objects.filter(email=email)
+        return Member.objects.get(email=email)

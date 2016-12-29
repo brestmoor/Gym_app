@@ -10,7 +10,7 @@ from .goal_models import Goal
 from .goal_models import PartialGoal
 from .goal_models import GoalRecord
 
-from .classes_models import Class
+from .classes_models import GroupClass
 from .classes_models import ClassInformation
 from .classes_models import ClassInSchedule
 

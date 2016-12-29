@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<div class="table-container">
+    <div class="table-container-inner">
+        <table class="table">
+            <thead>
+            <th class="hour">godz.</th>
+            <th ng-repeat="day in commonData.days track by $index" class="day-name">{{ day }}</th>
+            </thead>
+            <tbody>
+            <tr ng-repeat="(hour, list) in data.trainings" class="schedule-row">
+                <td>{{ hour }}</td>
+                <td ng-repeat="training in list track by $index">
+                    <div ng-if="training != null ">
+                        <div class="panel panel-default">
+                            <div class="panel-heading text-center">{{ training.class_in_schedule.trainer.first_name }}
+                            </div>
+                            <div class="panel-body text-center">
+                                <div ng-show="training.attendee == null">
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-success"
+                                             role="progressbar"
+                                             aria-valuenow="0" aria-valuemin="0"
+                                             aria-valuemax="1" style="width: 0">
+                                        </div>
+                                    </div>
+                                    <button join-training-button></button>
+                                </div>
+                                <div ng-show="training.attendee ===  storage.userData.email">
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-success"
+                                             role="progressbar"
+                                             aria-valuenow="1" aria-valuemin="0"
+                                             aria-valuemax="1" style="width: 100%">
+                                        </div>
+                                    </div>
+                                    <button cancel-training-button></button>
+                                </div>
+                                <div ng-show="training.attendee != null && training.attendee !==  storage.userData.email">
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-danger"
+                                             role="progressbar"
+                                             aria-valuenow="1" aria-valuemin="0"
+                                             aria-valuemax="1" style="width: 100%">
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-default disabled">Zapisz się</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

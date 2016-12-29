@@ -5,7 +5,7 @@
 schedule
     .directive('scheduleHead', function ($log) {
         return {
-            template: '<th class="col-md-1 col-md-offset-1">#</th>' +
-            '<th ng-repeat="(day, offset) in data.days track by $index" class="{{offset}}">{{day}}</th>'
+            template: '<th class="hour">godz.</th>' +
+            '<th ng-repeat="day in commonData.days track by $index" class="day-name">{{day}}</th>'
         }
     });
