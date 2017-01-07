@@ -15,14 +15,18 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from Gym_app.business_logic.personal_training.LengthAdder import LengthAdder
 from Gym_app.business_logic.personal_training.TrainingAttendanceManager import TrainingAttendanceManager
 from Gym_app.business_logic.schedule.ClassAttendanceManager import ClassAttendanceManager
 from Gym_app.business_logic.schedule.PersonalScheduleProvider import PersonalScheduleProvider
 from Gym_app.business_logic.schedule.class_schedule_provider import GroupClassScheduleProvider
 from Gym_app.business_logic.schedule.week_info_provider import WeekInfoProvider
 from Gym_app.business_logic.util.django_objects_serializer import DjangoObjectsMapper
+from Gym_app.dao.DietDao import DietDao
+from Gym_app.dao.ExercisesDao import ExercisesDao
+from Gym_app.dao.PlansDao import PlansDao
 from Gym_app.dao.TrainingDao import TrainingDao
-from Gym_app.dao.user.UserDao import UserDao
+from Gym_app.dao.user.MemberDao import MemberDao
 from Gym_app.models import Goal
 from Gym_app.serializers.StandardSerializer import CustomSerializer
 from Gym_app.serializers.goal_serializers import GoalSerializer
@@ -118,11 +122,11 @@ class MyClassesView(APIView):
 
 class UserView(APIView):
     def post(self, request, format=None):
-        try:
-            UserRegistrationValidator().validate(request.data)
-        except ValidationError as error:
-            return Response(error, status=status.HTTP_400_BAD_REQUEST)
-        user_dao = UserDao()
+ #       try:
+#            UserRegistrationValidator().validate(request.data)
+  #      except ValidationError as error:
+   #     return Response(error, status=status.HTTP_400_BAD_REQUEST)
+        user_dao = MemberDao()
         user_dao.insert(request.data)
         return HttpResponseRedirect('/schedule', status=status.HTTP_201_CREATED)
 
@@ -140,3 +144,56 @@ class SessionView(APIView):
                 status=status.HTTP_200_OK)
         else:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
+
+
+
+class TrainingPlansView(APIView):
+    def get(self, request, id=None, format=None):
+        if id is not None:
+            plan = PlansDao().getById(id)
+            mappedPlan = DjangoObjectsMapper(True).map(plan)
+            return HttpResponse(json.dumps(mappedPlan, default=CustomSerializer.serialize))
+        else:
+            plans = PlansDao().getAll()
+            return HttpResponse(json.dumps(plans, default=CustomSerializer.serialize))
+
+    def delete(self, request, id=None):
+        if id is not None:
+            plans_dao = PlansDao()
+            plans_dao.deleteById(id)
+            plans = plans_dao.getAll()
+            return HttpResponse(json.dumps(plans, default=CustomSerializer.serialize))
+        else:
+            return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
+
+    def post(self, request):
+        PlansDao().createAndFill(request.data['plan'], request.data['planName'], request.data['email'])
+        return HttpResponse(status=status.HTTP_200_OK)
+
+
+class TrainingPlansForUserView(APIView):
+    def get(self,request, username, format=None):
+        plan = PlansDao().getByUser(username)
+        mappedPlan = DjangoObjectsMapper(True).map(plan)
+        return HttpResponse(json.dumps(mappedPlan, default=CustomSerializer.serialize))
+
+
+class ExercisesView(APIView):
+    def get(self, username, format=None):
+        exercises = ExercisesDao().getAll()
+        exercisesMapped = DjangoObjectsMapper(True).map(exercises)
+        return HttpResponse(json.dumps(exercisesMapped, default=CustomSerializer.serialize))
+
+
+class DietsView(APIView):
+    def get(self, request):
+        if request.query_params.get('email') is not None:
+            diets = DietDao().getAllForTrainer(request.query_params.get('email'))
+            diets_mapped = DjangoObjectsMapper(True).map(diets)
+            return HttpResponse(json.dumps(diets_mapped, default=CustomSerializer.serialize))
+        else:
+            return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
+
+    def post(self, request):
+        DietDao().createAndFill(request.data['diet'], request.data['dietName'], request.data['email'])
+        return HttpResponse(status=status.HTTP_200_OK)

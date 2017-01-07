@@ -25,7 +25,8 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a ui-sref="schedule">Grafik</a></li>
-                <li><a href="#karnet">Karnet</a></li>
+                <li ng-show="storage.userData.group =='members'"><a href="#karnet">Karnet</a></li>
+                <li ng-show="storage.userData.group =='trainers'"><a ui-sref="trainerPersonalTraining">Treningi Personalne</a></li>
             </ul>
             <div ng-controller="navbarLoginCtrl as $ctrl" ng-if="!storage.userData.isLoggedIn">
                 <form class="navbar-form navbar-right" ng-submit="$ctrl.logIn()">
@@ -67,7 +68,8 @@
 <script src="/static/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-beta.3/angular-ui-router.js"></script>
 <script src="/static/lib/ui-bootstrap-tpls-2.2.0.js"></script>
 <script src="/static/lib/ngStorage.js"></script>
 <script src="/static/Gym_app/scripts/utils/utils.js"></script>
@@ -85,8 +87,17 @@
 <script src="/static/Gym_app/scripts/schedule/scheduleBody.js"></script>
 <script src="/static/Gym_app/scripts/registration/registrationController.js"></script>
 <script src="/static/Gym_app/scripts/personalTraining/personalTrainingApp.js"></script>
-<script src="/static/Gym_app/scripts/personalTraining/personalScheduleCtrl.js"></script>
-<script src="/static/Gym_app/scripts/personalTraining/joinTrainingButton.js"></script>
-<script src="/static/Gym_app/scripts/personalTraining/cancelTrainingButton.js"></script>
+<script src="/static/Gym_app/scripts/personalTraining/member/personalSchedule/personalScheduleCtrl.js"></script>
+<script src="/static/Gym_app/scripts/personalTraining/member/personalSchedule/joinTrainingButton.js"></script>
+<script src="/static/Gym_app/scripts/personalTraining/member/personalSchedule/cancelTrainingButton.js"></script>
+<script src="/static/Gym_app/scripts/personalTraining/trainer/trainerPersonalTrainingApp.js"></script>
+<script src="/static/Gym_app/scripts/personalTraining/trainer/plans/trainerPlansComp.js"></script>
+<script src="/static/Gym_app/scripts/personalTraining/trainer/plans/trainerPlansService.js"></script>
+<script src="/static/Gym_app/scripts/personalTraining/trainer/plans/trainerPlanComp.js"></script>
+<script src="/static/Gym_app/scripts/personalTraining/brFilter.js"></script>
+<script src="/static/Gym_app/scripts/personalTraining/trainer/plans/newPlanComp.js"></script>
+<script src="/static/Gym_app/scripts/personalTraining/trainer/diets/trainerDietsComp.js"></script>
+<script src="/static/Gym_app/scripts/personalTraining/trainer/diets/trainerDietsService.js"></script>
+<script src="/static/Gym_app/scripts/personalTraining/trainer/diets/newPlanComp.js"></script>
 </body>
 </html>

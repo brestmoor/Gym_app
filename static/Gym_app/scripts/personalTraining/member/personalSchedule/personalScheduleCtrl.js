@@ -12,7 +12,7 @@ personalTraining.controller('personalTrainingScheduleCtrl', function ($scope, $r
         $scope.data.trainings = response.data;
     }, function (response) {
         alert('error' + response.data)
-    })
+    });
 
     $scope.joinTraining = trainingAttendanceService.joinTraining;
     $scope.cancelTraining = trainingAttendanceService.cancelTraining;
@@ -20,7 +20,7 @@ personalTraining.controller('personalTrainingScheduleCtrl', function ($scope, $r
 }).service('trainingAttendanceService', ['$http', '$q', function ($http, $q) {
     this.joinTraining = function (classNumber) {
         return $q(function (resolve, reject) {
-            $http.post('/personalTraining/trainings/' + classNumber + '/attendee').then(function (response) {
+            $http.post('/personalTraining/trainings/' + classNumber + '/attendee', '').then(function (response) {
                 resolve(response)
             }, function (error) {
                 reject(error)

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<table style="width: 100%">
+    <tr>
+        <td ng-repeat="nameOfTheDay in $ctrl.days" class="new-plan-head">
+            <div class="panel panel-default" ng-init="counter=1">
+                <div class="panel-heading">{{ nameOfTheDay }}</div>
+                <div class="panel-body fixed-panel">
+                    <div class="panel panel-default" style="margin-bottom: 12px"
+                         ng-repeat="meal in (filteredMeals = ($ctrl.plannedMeals | filter:{day: nameOfTheDay}:true))">
+                        <div class="form-group">
+                            <input type="text" class="form-control" ng-model="meal.name">
+                        </div>
+                        <input type="text" class="form-control" ng-model="meal.quantity">g
+                        <input type="text" class="form-control" ng-model="meal.calories">kcal
+                    </div>
+                    <button class="btn btn-default"
+                            ng-click="$ctrl.addNewMeal(nameOfTheDay, counter); counter=counter+1">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </div>
+            </div>
+            {{ $ctrl.caloriesByDay[nameOfTheDay] }}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6"><h3>{{ $ctrl.dietName }}</h3></td>
+        <td>
+            <button class="btn btn-success pull-right" ng-click="$ctrl.createNew()">Utwórz</button>
+        </td>
+    </tr>
+</table>

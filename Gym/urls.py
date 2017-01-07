@@ -37,5 +37,11 @@ urlpatterns = [
     url(r'^schedule/classes/([0-9]+)/attendees$', views.ClassAttendanceView.as_view()),
     url(r'^member/classes/', views.MyClassesView.as_view()),
     url(r'^users$', views.UserView.as_view()),
-    url(r'^session$', views.SessionView.as_view())
+    url(r'^session$', views.SessionView.as_view()),
+    url(r'^trainingPlans/$', views.TrainingPlansView.as_view()),
+    url(r'^trainingPlans/([0-9]+)$', views.TrainingPlansView.as_view()),
+    url(r'^trainingPlans/([\w.@+-]+)$', views.TrainingPlansForUserView.as_view()),
+    url(r'^exercises/$', views.ExercisesView.as_view()),
+    url(r'^diets/$', views.DietsView.as_view()),
+    url(r'^meals/$', views.DietsView.as_view()),
 ]

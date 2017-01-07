@@ -9,6 +9,9 @@ class WeekInfoProvider:
     day_names_numbers = OrderedDict([('Monday', 0), ('Tuesday', 1), ('Wednesday', 2),
                                      ('Thursday', 3), ('Friday', 4), ('Saturday', 5),
                                      ('Sunday', 6)])
+    day_names_numbers_pl = OrderedDict([('Poniedziałek', 0), ('Wtorek', 1), ('Środa', 2),
+                                     ('Czwartek', 3), ('Piątek', 4), ('Sobota', 5),
+                                     ('Niedziela', 6)])
 
     def __init__(self):
         pass

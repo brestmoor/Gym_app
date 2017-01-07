@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<ul class="list-group">
+    <li ng-repeat="plan in $ctrl.plans"
+        class="list-group-item">{{ plan.description }}
+        <span class="pull-right" style="margin-left: 7px">
+            <span class="btn btn-xs btn-danger" ng-click="$ctrl.deletePlan(plan.id)">
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+            </span>
+        </span>
+        <span class="pull-right" ui-sref="trainerPersonalTraining.trainingPlan({planId: plan.id})">
+            <span class="btn btn-xs btn-default">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </span>
+        </span>
+    </li>
+    <li class="list-group-item">
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="newPlanName">
+            <div class="input-group-btn">
+                <button id="nameText" type="button" class="btn btn-success" ui-sref="trainerPersonalTraining.newTrainingPlan({planName: newPlanName})">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </li>
+</ul>

@@ -1,25 +1,24 @@
+from django.core.validators import validate_comma_separated_integer_list
 from django.db import models
 
-
-class WorkoutProgram(models.Model):
-    pass
-
-
-class WorkoutDay(models.Model):
-    day_name = models.CharField(max_length=20)
-    workout_program = models.ForeignKey(WorkoutProgram, on_delete=models.CASCADE)
+from Gym_app.models.training_plan import TrainingPlan
 
 
 class Exercise(models.Model):
-    workout_day = models.ForeignKey(WorkoutProgram, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     description = models.TextField()
-    url = models.URLField()
+    url = models.URLField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
 
 
-class WorkoutProgramTemplate(WorkoutProgram):
-    pass
+class ExerciseInPlan(models.Model):
+    plan = models.ForeignKey(TrainingPlan)
+    exercise = models.ForeignKey(Exercise)
+    day = models.CharField(max_length=200)
+    order = models.IntegerField()
+    repetitions = models.CharField(max_length=50, validators=[validate_comma_separated_integer_list])
 
-
-class WorkoutDayTemplate(WorkoutDay):
-    pass
+    def __str__(self):
+        return self.exercise.name + " in " + self.plan.description + " " + str(self.order)

@@ -1,8 +1,7 @@
 from .cards_models import CreditCard
 from .cards_models import MembershipCard
 
-from .person_models import Manager
-from .person_models import Member
+from .member import Member
 from .person_models import Instructor
 
 
@@ -14,14 +13,10 @@ from .classes_models import GroupClass
 from .classes_models import ClassInformation
 from .classes_models import ClassInSchedule
 
-from .diet_plan_models import DietPlan
-from .diet_plan_models import DietDay
+from .diet_plan_models import Diet
 from .diet_plan_models import Meal
-from .diet_plan_models import DietPlanTemplate
-from .diet_plan_models import DietDayTemplate
 
-from .workout_models import WorkoutProgram
-from .workout_models import WorkoutDay
+from .training_plan import TrainingPlan
 from .workout_models import Exercise
-from .workout_models import WorkoutProgramTemplate
-from .workout_models import WorkoutDayTemplate
+from .workout_models import ExerciseInPlan
+

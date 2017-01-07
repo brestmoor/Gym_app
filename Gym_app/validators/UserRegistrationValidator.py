@@ -1,11 +1,11 @@
 from django.core.exceptions import ValidationError
 
-from Gym_app.dao.user.UserDao import UserDao
+from Gym_app.dao.user.MemberDao import MemberDao
 
 
 class UserRegistrationValidator:
     def __init__(self):
-        self.user_dao = UserDao()
+        self.user_dao = MemberDao()
 
     def validate(self, user_data):
         self.__are_all_fields_provided(user_data)

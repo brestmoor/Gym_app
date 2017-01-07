@@ -1,23 +1,26 @@
 from django.db import models
 
-
-class DietPlan(models.Model):
-    pass
+from Gym_app.models.person_models import Instructor
 
 
-class DietDay(models.Model):
-    diet_plan = models.ForeignKey(DietPlan)
-    day_name = models.CharField(max_length=50)
+class Diet(models.Model):
+    trainer = models.ForeignKey(Instructor, null=True, blank=True)
+    description = models.CharField(max_length=200, null=True, blank=True)
+
+    def __str__(self):
+        if self.description is None:
+            return str(self.pk)
+        else:
+            return self.description
+
 
 
 class Meal(models.Model):
-    diet_day = models.ForeignKey(DietDay)
+    plan = models.ForeignKey(Diet, null=True)
     name = models.TextField(max_length=100)
+    quantity = models.IntegerField()
+    calories = models.IntegerField()
+    order = models.IntegerField()
+    day = models.CharField(max_length=100)
 
 
-class DietPlanTemplate(DietPlan):
-    pass
-
-
-class DietDayTemplate(DietDay):
-    pass

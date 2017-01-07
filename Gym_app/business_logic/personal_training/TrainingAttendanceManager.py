@@ -1,10 +1,10 @@
 from Gym_app.dao.TrainingDao import TrainingDao
-from Gym_app.dao.user.UserDao import UserDao
+from Gym_app.dao.user.MemberDao import MemberDao
 
 
 class TrainingAttendanceManager():
     def sign_up_for_class(self, class_id, email):
-        user_dao = UserDao()
+        user_dao = MemberDao()
         training = TrainingDao().get_training_by_id(class_id)
         training.attendee = user_dao.get_by_email(email)
         training.save()

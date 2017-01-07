@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<table class="table table-bordered fixed">
+    <thead>
+    <tr>
+        <th ng-repeat="day in $ctrl.days track by $index" class="plan-head">
+            {{ day }}
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="(order, exercises) in $ctrl.plan track by $index">
+        <td ng-repeat="item in exercises track by $index" class="plan-cell">
+            <div ng-if="item != null" class="text-center">
+                <button uib-popover-html="'{{item.exercise.description | nl2br}}'" popover-title="{{ item.exercise.name }}"
+                        type="button" class="btn btn-default">
+                    {{ item.exercise.name | limitTo: 11 }}{{item.exercise.name.length > 11 ? '...' : ''}}
+                    <br>
+                    {{ item.repetitions }}
+                </button>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

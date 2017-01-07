@@ -3,13 +3,13 @@
  */
 
 
-var gymApp = angular.module('gymApp', ['schedule', 'personalTraining', 'ui.router', 'ngStorage']);
+var gymApp = angular.module('gymApp', ['schedule', 'personalTraining', 'ui.router', 'ngStorage', 'ngSanitize', 'trainerPersonalTraining']);
 
 gymApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 
-    $urlRouterProvider.otherwise('/schedule')
+    $urlRouterProvider.otherwise('/schedule');
 
     $stateProvider
         .state('schedule', {
@@ -29,4 +29,76 @@ gymApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
             controller: 'personalTrainingScheduleCtrl',
             templateUrl: '/static/Gym_app/views/personalSchedule.html'
         })
+        .state('trainerPersonalTraining', {
+            url: '/trainerPersonalTraining',
+            templateUrl: '/static/Gym_app/views/trainer/trainerPersonalTraining.html'
+        })
+        .state('trainerPersonalTraining.plans', {
+            url: '/plans',
+            component: 'trainerPlansComp',
+            resolve: {
+                plans: function (trainerPlansService, $transition$) {
+                    return trainerPlansService.getPlans()
+                }
+            }
+        })
+        .state('trainerPersonalTraining.diets', {
+            url: '/diets/{email}',
+            component: 'trainerDietsComp',
+            resolve: {
+                diets: function (trainerDietsService, $transition$) {
+                    return trainerDietsService.getDiets($transition$.params().email)
+                }
+            }
+        })
+        .state('trainerPersonalTraining.members', {
+            url: '/members',
+            component: 'trainerMembersComp',
+            resolve: {
+                members: function (trainerMembersService, $transition$) {
+                    return trainerMembersService.getMembers()
+                }
+            }
+        })
+        .state('trainerPersonalTraining.trainingPlan', {
+            url: '/trainerPersonalTraining/plans/{planId}',
+            component: 'trainerPlanComp',
+            resolve: {
+                plan: function (trainerPlansService, $transition$) {
+                    return trainerPlansService.getPlan($transition$.params().planId);
+                }
+            }
+        })
+        .state('trainerPersonalTraining.newTrainingPlan', {
+            url: '/trainerPersonalTraining/plans/new/{planName}',
+            component: 'newPlanComp',
+            resolve: {
+                exercises: function (trainerPlansService) {
+                    return trainerPlansService.getExercises();
+                },
+                planName: function ($transition$) {
+                    return $transition$.params().planName
+                }
+            }
+        })
+        .state('trainerPersonalTraining.diet', {
+            url: '/trainerPersonalTraining/diets/{dietId}',
+            component: 'trainerDietsComp',
+            resolve: {
+                plan: function (trainerDietsService, $transition$) {
+                    return trainerDietsService.getDiet($transition$.params().dietId);
+                }
+            }
+        })
+        .state('trainerPersonalTraining.newDiet', {
+            url: '/trainerPersonalTraining/diets/new/{dietName}',
+            component: 'newDietComp',
+            resolve: {
+                dietName: function ($transition$) {
+                    return $transition$.params().dietName
+                }
+            }
+        })
+
+
 })

@@ -1,11 +1,12 @@
 from Gym_app.models import Member
 
 
-class UserDao:
+class MemberDao:
     def insert(self, user_data):
         new_member = Member.objects.create_user(user_data['email'], user_data['email'], user_data['password'])
         new_member.last_name = user_data['lastName']
         new_member.first_name = user_data['name']
+        new_member.groups.addFor(4)
         new_member.save()
 
     def get_by_full_name(self, name, last_name):

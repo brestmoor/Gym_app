@@ -13,14 +13,20 @@ schedule
                 $scope.data.classes = angular.fromJson(response.data);
             });
 
-        if ($scope.storage.userData.isLoggedIn == true) {
-            $scope.userClasses = [];
-            usersClassesService.getClassesIds().then(function (classes) {
-                $scope.userClasses = classes
-            }, function (error) {
-                alert(error)
-            })
-        }
+
+
+        $scope.$watch(function (scope) {
+            return scope.storage.userData.isLoggedIn;
+        }, function (isLoggedIn) {
+            if (isLoggedIn == true) {
+                $scope.userClasses = [];
+                usersClassesService.getClassesIds().then(function (classes) {
+                    $scope.userClasses = classes
+                }, function (error) {
+                    alert(error)
+                })
+            }
+        });
 
         $scope.openLoginDialog = loginModalService.open;
         $scope.joinClass = classAttendanceService.join;
@@ -88,10 +94,11 @@ schedule
         }
     }])
     .service('daysOfTheWeekProvider', ['$http', '$rootScope', function ($http, $rootScope) {
-        this.getDaysOfTheWeek = function(){
-        $http.get('http://localhost:8000/schedule/days')
-            .then(function (response) {
-                $rootScope.commonData = {};
-                $rootScope.commonData.days = angular.fromJson(response.data);
-            })};
+        this.getDaysOfTheWeek = function () {
+            $http.get('http://localhost:8000/schedule/days')
+                .then(function (response) {
+                    $rootScope.commonData = {};
+                    $rootScope.commonData.days = angular.fromJson(response.data);
+                })
+        };
     }]);

@@ -1,6 +1,7 @@
 from collections import OrderedDict
 from typing import Dict, List
 
+from django.contrib.auth.models import User
 from django.db import models
 from itertools import chain
 
@@ -11,14 +12,14 @@ from Gym_app.models import Member
 
 
 class DjangoObjectsMapper:
-    def __init__(self, should_member_to_email = None):
+    def __init__(self, should_user_to_email = None):
         self.mapper = DeepMapper()
         self.member_converter = MemberToDtoConverter()
-        self.should_member_to_email = should_member_to_email
+        self.should_user_to_email = should_user_to_email
 
     def map(self, collection):
-        if self.should_member_to_email:
-            if isinstance(collection, Member):
+        if self.should_user_to_email:
+            if isinstance(collection, User):
                 return collection.email
 
         if isinstance(collection, Member):
