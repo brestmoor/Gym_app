@@ -8,22 +8,38 @@ from itertools import chain
 from django.db.models import ForeignKey
 from Gym_app.business_logic.util.deep_model_to_dict import DeepMapper
 from Gym_app.converters.MemberToDtoConverter import MemberToDtoConverter
+from Gym_app.converters.UserToDtoConverter import UserToDtoConverter
 from Gym_app.models import Member
 
 
 class DjangoObjectsMapper:
-    def __init__(self, should_user_to_email = None):
+    def __init__(self, should_user_to_email = None, should_member_basic_info = None):
         self.mapper = DeepMapper()
+        self.user_converter = UserToDtoConverter()
         self.member_converter = MemberToDtoConverter()
         self.should_user_to_email = should_user_to_email
+        self.should_member_basic_info = should_member_basic_info
 
     def map(self, collection):
+        if self.should_member_basic_info:
+            if isinstance(collection, Member):
+                return self.member_converter.convert(collection)
+
         if self.should_user_to_email:
             if isinstance(collection, User):
                 return collection.email
 
+        if isinstance(collection, int):
+            return collection
+
+        if isinstance(collection, str):
+            return collection
+
         if isinstance(collection, Member):
-            return self.member_converter.convert(collection)
+            return self.user_converter.convert(collection)
+
+        if isinstance(collection, Member):
+            return self.user_converter.convert(collection)
 
         if isinstance(collection, models.Model):
             return self.model_to_dict(collection)

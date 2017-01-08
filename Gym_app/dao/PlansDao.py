@@ -18,10 +18,13 @@ class PlansDao:
             })
         return result
 
-    def getById(self, id):
+    def getByIdWithGroupedExercises(self, id):
         grouper = Grouper()
         plan = TrainingPlan.objects.get(pk=id)
         return grouper.group(list(plan.exerciseinplan_set.all()))
+
+    def getById(self, id):
+        return TrainingPlan.objects.get(pk=id)
 
     def getByUser(self, email):
         user = Member.objects.get(username = email)

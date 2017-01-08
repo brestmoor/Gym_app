@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<div class="row" ng-repeat="member in $ctrl.members" ng-init="changed = false">
+    <div class="col-md-3">
+        <div style="height: 34px; line-height: 34px;">
+                <a ui-sref="trainerPersonalTraining.member({memberId: member.id, email: $ctrl.trainerEmail})"> {{ member.fullName }} </a>
+        </div>
+    </div>
+    <div class="col-md-3" ng-init="planChanged = false">
+        <select ng-change="changed=true; planChanged=true"
+                ng-class="[form-control, {'blurred-border-green':planChanged}]"
+                class="form-control"
+                ng-options="plan as plan.description for plan in $ctrl.plans track by plan.id"
+                ng-model="member.trainingPlan">
+        </select>
+    </div>
+    <div class="col-md-3" ng-init="dietChanged = galse">
+        <select ng-change="changed=true; dietChanged=true"
+                ng-class="[form-control, {'blurred-border-green':dietChanged}]"
+                class="form-control"
+                ng-options="diet as diet.description for diet in $ctrl.diets track by diet.id"
+                ng-model="member.diet">
+        </select>
+    </div>
+    <div class="col-md-1" style="line-height: 34px;">
+        <span ng-show="changed === true" class="btn btn-xs btn-default">
+            <span class="glyphicon glyphicon-ok"
+                  ng-click="$ctrl.submit(member); dietChanged=false; planChanged=false; changed=false">
+            </span>
+        </span>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<table class="table table-bordered fixed">
+    <thead>
+    <tr>
+        <th ng-repeat="day in $ctrl.days track by $index" class="plan-head">
+            {{ day }}
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="(order, orderedMeals) in $ctrl.diet.meals track by $index">
+        <td ng-repeat="item in orderedMeals track by $index" class="plan-cell">
+            <div ng-if="item != null" class="text-center">
+                <button uib-popover-html="'{{ item.calories }} kcal'" popover-title="{{ item.name }}"
+                        type="button" class="btn btn-default">
+                    {{ item.name | limitTo: 11 }}{{ item.name.length > 11 ? '...' : ''}}
+                    <br>
+                    {{ item.quantity }} g
+                </button>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td ng-repeat="(day, calories) in $ctrl.diet.calories track by $index">{{ calories }} kcal</td>
+    </tr>
+    </tbody>
+</table>
+<div><h3>{{ $ctrl.diet.description }}</h3></div>

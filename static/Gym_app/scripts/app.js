@@ -52,11 +52,17 @@ gymApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
             }
         })
         .state('trainerPersonalTraining.members', {
-            url: '/members',
+            url: '/members/{email}',
             component: 'trainerMembersComp',
             resolve: {
                 members: function (trainerMembersService, $transition$) {
-                    return trainerMembersService.getMembers()
+                    return trainerMembersService.getMembers($transition$.params().email)
+                },
+                diets: function (trainerDietsService, $transition$) {
+                    return trainerDietsService.getDiets($transition$.params().email)
+                },
+                plans: function (trainerPlansService, $transition$) {
+                    return trainerPlansService.getPlans()
                 }
             }
         })
@@ -83,9 +89,9 @@ gymApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
         })
         .state('trainerPersonalTraining.diet', {
             url: '/trainerPersonalTraining/diets/{dietId}',
-            component: 'trainerDietsComp',
+            component: 'trainerDietComp',
             resolve: {
-                plan: function (trainerDietsService, $transition$) {
+                diet: function (trainerDietsService, $transition$) {
                     return trainerDietsService.getDiet($transition$.params().dietId);
                 }
             }
@@ -99,6 +105,19 @@ gymApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
                 }
             }
         })
-
-
+        .state('trainerPersonalTraining.member', {
+            url: '/trainerPersonalTraining/members/{email}/trainer/{memberId}',
+            component: 'trainerMemberComp',
+            resolve: {
+                member: function (trainerMembersService, $transition$) {
+                    return trainerMembersService.getMember($transition$.params().memberId);
+                },
+                diets: function (trainerDietsService, $transition$) {
+                    return trainerDietsService.getDiets($transition$.params().email)
+                },
+                plans: function (trainerPlansService, $transition$) {
+                    return trainerPlansService.getPlans()
+                }
+            }
+        })
 })

@@ -8,7 +8,7 @@
                     <div class="panel panel-default" style="margin-bottom: 12px"
                          ng-repeat="planned in $ctrl.plannedMeals | filter:{day: nameOfTheDay}:true">
                         <div class="form-group">
-                            <select class="form-control" ng-model="planned.exercise">
+                            <select class="form-control blurred-border-green" ng-model="planned.exercise">
                                 <option ng-repeat="exercise in $ctrl.exercises">{{ exercise.name }}</option>
                             </select>
                         </div>

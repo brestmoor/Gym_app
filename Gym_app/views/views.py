@@ -15,6 +15,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from Gym_app.business_logic.personal_training.DietEnricher import DietEnricher
 from Gym_app.business_logic.personal_training.LengthAdder import LengthAdder
 from Gym_app.business_logic.personal_training.TrainingAttendanceManager import TrainingAttendanceManager
 from Gym_app.business_logic.schedule.ClassAttendanceManager import ClassAttendanceManager
@@ -122,10 +123,10 @@ class MyClassesView(APIView):
 
 class UserView(APIView):
     def post(self, request, format=None):
- #       try:
-#            UserRegistrationValidator().validate(request.data)
-  #      except ValidationError as error:
-   #     return Response(error, status=status.HTTP_400_BAD_REQUEST)
+        #       try:
+        #            UserRegistrationValidator().validate(request.data)
+        #      except ValidationError as error:
+        #     return Response(error, status=status.HTTP_400_BAD_REQUEST)
         user_dao = MemberDao()
         user_dao.insert(request.data)
         return HttpResponseRedirect('/schedule', status=status.HTTP_201_CREATED)
@@ -146,11 +147,10 @@ class SessionView(APIView):
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
 
 
-
 class TrainingPlansView(APIView):
     def get(self, request, id=None, format=None):
         if id is not None:
-            plan = PlansDao().getById(id)
+            plan = PlansDao().getByIdWithGroupedExercises(id)
             mappedPlan = DjangoObjectsMapper(True).map(plan)
             return HttpResponse(json.dumps(mappedPlan, default=CustomSerializer.serialize))
         else:
@@ -172,7 +172,7 @@ class TrainingPlansView(APIView):
 
 
 class TrainingPlansForUserView(APIView):
-    def get(self,request, username, format=None):
+    def get(self, request, username, format=None):
         plan = PlansDao().getByUser(username)
         mappedPlan = DjangoObjectsMapper(True).map(plan)
         return HttpResponse(json.dumps(mappedPlan, default=CustomSerializer.serialize))
@@ -186,14 +186,43 @@ class ExercisesView(APIView):
 
 
 class DietsView(APIView):
-    def get(self, request):
-        if request.query_params.get('email') is not None:
-            diets = DietDao().getAllForTrainer(request.query_params.get('email'))
-            diets_mapped = DjangoObjectsMapper(True).map(diets)
-            return HttpResponse(json.dumps(diets_mapped, default=CustomSerializer.serialize))
+    def get(self, request, id=None):
+        if id is not None:
+            diet = DietDao().getByIdWithGroupedMeals(id)
+            diet_with_calories = DietEnricher().addCalories(diet)
+            mapped_diet = DjangoObjectsMapper(True).map(diet_with_calories)
+            return HttpResponse(json.dumps(mapped_diet, default=CustomSerializer.serialize))
         else:
-            return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
+            if request.query_params.get('email') is not None:
+                diets = DietDao().getAllForTrainer(request.query_params.get('email'))
+                diets_mapped = DjangoObjectsMapper(True).map(diets)
+                return HttpResponse(json.dumps(diets_mapped, default=CustomSerializer.serialize))
+            else:
+                return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
 
     def post(self, request):
         DietDao().createAndFill(request.data['diet'], request.data['dietName'], request.data['email'])
+        return HttpResponse(status=status.HTTP_200_OK)
+
+
+class MembersView(APIView):
+    def get(self, request, id=None):
+        if id is not None:
+            member_dao = MemberDao()
+            django_objects_mapper = DjangoObjectsMapper(True, True)
+            member = member_dao.get_by_id(id)
+            mapped_member = django_objects_mapper.map(member)
+            goal = member_dao.get_goal_for_member(member)
+            mapped_goal = django_objects_mapper.map(goal)
+            return HttpResponse(json.dumps(mapped_member, default=CustomSerializer.serialize))
+        else:
+            if request.query_params.get('email') is not None:
+                members = MemberDao().get_all_for_trainer(request.query_params.get('email'))
+                membersMapped = DjangoObjectsMapper(True, True).map(members)
+                return HttpResponse(json.dumps(membersMapped, default=CustomSerializer.serialize))
+            else:
+                return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        MemberDao().update(request.data['member'])
         return HttpResponse(status=status.HTTP_200_OK)

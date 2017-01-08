@@ -43,5 +43,9 @@ urlpatterns = [
     url(r'^trainingPlans/([\w.@+-]+)$', views.TrainingPlansForUserView.as_view()),
     url(r'^exercises/$', views.ExercisesView.as_view()),
     url(r'^diets/$', views.DietsView.as_view()),
+    url(r'^diets/([0-9]+)$', views.DietsView.as_view()),
     url(r'^meals/$', views.DietsView.as_view()),
+    url(r'^members/$', views.MembersView.as_view()),
+    url(r'^members/([0-9]+)$', views.MembersView.as_view()),
+
 ]

@@ -13,6 +13,22 @@ table.fixed {
 .fixed-panel {
     min-height: 400px;
     max-height: 400px;
+    overflow: auto;
+}
+
+.blurred-border-green {
+    box-shadow: 0px 0px 9px 1px rgba(169,219,140,1);
+
+}
+
+.display-members-row {
+    display: table;
+}
+
+.display-members-row.member-panel {
+    float: none;
+    display: table-cell;
+    vertical-align: top;
 }
 
 th.day-name {
