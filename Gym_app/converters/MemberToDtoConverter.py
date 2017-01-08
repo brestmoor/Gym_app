@@ -15,5 +15,5 @@ class MemberToDtoConverter:
 
     def convert_extended(self, member: Member) -> {}:
         info = self.convert(member)
-        info['achievements'] = member.goal_set.all()[0]
+        info['goal'] = member.goal_set.all()[0]
         return info

@@ -7,8 +7,10 @@ from itertools import chain
 
 from django.db.models import ForeignKey
 from Gym_app.business_logic.util.deep_model_to_dict import DeepMapper
+from Gym_app.converters.AchievementsConverter import AchievementsConverter
 from Gym_app.converters.MemberToDtoConverter import MemberToDtoConverter
 from Gym_app.converters.UserToDtoConverter import UserToDtoConverter
+from Gym_app.models import Goal
 from Gym_app.models import Member
 
 
@@ -19,6 +21,7 @@ class DjangoObjectsMapper:
         self.member_converter = MemberToDtoConverter()
         self.should_user_to_email = should_user_to_email
         self.should_member_basic_info = should_member_basic_info
+        self.achievements_converter = AchievementsConverter()
 
     def map(self, collection):
         if self.should_member_basic_info:
@@ -38,8 +41,8 @@ class DjangoObjectsMapper:
         if isinstance(collection, Member):
             return self.user_converter.convert(collection)
 
-        if isinstance(collection, Member):
-            return self.user_converter.convert(collection)
+        if isinstance(collection, Goal):
+            return self.achievements_converter.convertGoal(collection)
 
         if isinstance(collection, models.Model):
             return self.model_to_dict(collection)

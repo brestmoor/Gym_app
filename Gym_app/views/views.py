@@ -214,7 +214,11 @@ class MembersView(APIView):
             mapped_member = django_objects_mapper.map(member)
             goal = member_dao.get_goal_for_member(member)
             mapped_goal = django_objects_mapper.map(goal)
-            return HttpResponse(json.dumps(mapped_member, default=CustomSerializer.serialize))
+            result = {
+                'data': mapped_member,
+                'goal': mapped_goal
+            }
+            return HttpResponse(json.dumps(result, default=CustomSerializer.serialize))
         else:
             if request.query_params.get('email') is not None:
                 members = MemberDao().get_all_for_trainer(request.query_params.get('email'))

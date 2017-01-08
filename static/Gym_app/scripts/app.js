@@ -3,7 +3,8 @@
  */
 
 
-var gymApp = angular.module('gymApp', ['schedule', 'personalTraining', 'ui.router', 'ngStorage', 'ngSanitize', 'trainerPersonalTraining']);
+var gymApp = angular.module('gymApp', ['schedule', 'personalTraining',
+    'ui.router', 'ngStorage', 'ngSanitize', 'trainerPersonalTraining', 'chart.js']);
 
 gymApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
@@ -107,7 +108,8 @@ gymApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
         })
         .state('trainerPersonalTraining.member', {
             url: '/trainerPersonalTraining/members/{email}/trainer/{memberId}',
-            component: 'trainerMemberComp',
+            controller: 'trainerMemberCtrl',
+            templateUrl: '/static/Gym_app/views/trainer/members/member.html',
             resolve: {
                 member: function (trainerMembersService, $transition$) {
                     return trainerMembersService.getMember($transition$.params().memberId);
