@@ -1,6 +1,7 @@
 from Gym_app.dao.DietDao import DietDao
 from Gym_app.dao.PlansDao import PlansDao
 from Gym_app.models import Goal
+from Gym_app.models import GoalRecord
 from Gym_app.models import Instructor
 from Gym_app.models import Member
 
@@ -36,3 +37,12 @@ class MemberDao:
 
     def get_goal_for_member(self, member):
         return Goal.objects.get(member=member)
+
+    def add_record(self, id, record):
+        member = self.get_by_id(id)
+        goal = member.goal_set.all()[0]
+        newRecord = GoalRecord()
+        newRecord.date = record['date']
+        newRecord.value = record['value']
+        newRecord.goal = goal
+        newRecord.save()

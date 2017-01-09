@@ -13,7 +13,7 @@
                 ng-model="member.trainingPlan">
         </select>
     </div>
-    <div class="col-md-3" ng-init="dietChanged = galse">
+    <div class="col-md-3" ng-init="dietChanged = false">
         <select ng-change="changed=true; dietChanged=true"
                 ng-class="[form-control, {'blurred-border-green':dietChanged}]"
                 class="form-control"

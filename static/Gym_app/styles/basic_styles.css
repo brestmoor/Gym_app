@@ -25,6 +25,8 @@ table.fixed {
     display: table;
 }
 
+.inline-float { float:left; }
+
 .display-members-row.member-panel {
     float: none;
     display: table-cell;

@@ -2,4 +2,60 @@
 
 <h4>{{ member.data.fullName }}</h4>
 <canvas class="chart chart-linebis" chart-data="data"
-  chart-labels="labels" chart-legend="true" chart-series="series" chart-options="options"></canvas>
+        chart-labels="labels" chart-legend="true" chart-series="series" chart-options="options"></canvas>
+<div class="row" ng-init="changed = false">
+    <div class="col-md-3" ng-init="planChanged = false">
+        <select ng-change="changed=true; planChanged=true"
+                ng-class="[form-control, {'blurred-border-green':planChanged}]"
+                class="form-control"
+                ng-options="plan as plan.description for plan in plans track by plan.id"
+                ng-model="member.data.trainingPlan">
+        </select>
+    </div>
+    <div class="col-md-3" ng-init="dietChanged = false">
+        <select ng-change="changed=true; dietChanged=true"
+                ng-class="[form-control, {'blurred-border-green':dietChanged}]"
+                class="form-control"
+                ng-options="diet as diet.description for diet in diets track by diet.id"
+                ng-model="member.data.diet">
+        </select>
+    </div>
+    <div class="col-md-1" style="line-height: 34px;">
+        <span ng-show="changed === true" class="btn btn-xs btn-default">
+            <span class="glyphicon glyphicon-ok"
+                  ng-click="submit(); dietChanged=false; planChanged=false; changed=false">
+            </span>
+        </span>
+    </div>
+    <div class="col-md-1 pull-right">
+        <button class="btn btn-default pull-right"
+                style="width: 100%"
+                ng-click="addNewRecord()"><span
+                class="glyphicon glyphicon-ok"></span>
+        </button>
+    </div>
+    <div class="col-md-1 pull-right"><input type="number"  style="width: 65px" class="form-control" ng-model="newRecord"></div>
+    <div class="col-md-3 pull-right" style="padding-right: 0px">
+        <p class="input-group">
+            <input type="text" class="form-control" uib-datepicker-popup ng-model="newDate" is-open="popup2.opened"
+                   datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
+            <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open2()"><i
+                    class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+    </div>
+
+</div>
+<div class="row" class="pull-right">
+
+    <div class="col-md-1 pull-right">
+        <button class="btn btn-default pull-right"
+                style="width: 100%"
+                ng-click="addNewRecord()"><span
+                class="glyphicon glyphicon-ok"></span>
+        </button>
+    </div>
+    <div class="col-md-1 pull-right"><input type="number" style="width: 65px" class="form-control" ng-model="newRecord"></div>
+
+</div>

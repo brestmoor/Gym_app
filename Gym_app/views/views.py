@@ -230,3 +230,9 @@ class MembersView(APIView):
     def put(self, request):
         MemberDao().update(request.data['member'])
         return HttpResponse(status=status.HTTP_200_OK)
+
+    def post(self, request, id=None):
+        if id is not None:
+            member_dao = MemberDao()
+            member_dao.add_record(id, request.data)
+            return HttpResponse(status=status.HTTP_200_OK)
