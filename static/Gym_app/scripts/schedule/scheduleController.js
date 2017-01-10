@@ -14,17 +14,18 @@ schedule
             });
 
 
-
         $scope.$watch(function (scope) {
             return scope.storage.userData.isLoggedIn;
         }, function (isLoggedIn) {
             if (isLoggedIn == true) {
-                $scope.userClasses = [];
-                usersClassesService.getClassesIds().then(function (classes) {
-                    $scope.userClasses = classes
-                }, function (error) {
-                    alert(error)
-                })
+                if ($scope.storage.userData.group === 'members') {
+                    $scope.userClasses = [];
+                    usersClassesService.getClassesIds().then(function (classes) {
+                        $scope.userClasses = classes
+                    }, function (error) {
+                        alert(error)
+                    })
+                }
             }
         });
 

@@ -4,6 +4,7 @@ from Gym_app.models import Goal
 from Gym_app.models import GoalRecord
 from Gym_app.models import Instructor
 from Gym_app.models import Member
+from Gym_app.models import PartialGoal
 
 
 class MemberDao:
@@ -11,7 +12,7 @@ class MemberDao:
         new_member = Member.objects.create_user(user_data['email'], user_data['email'], user_data['password'])
         new_member.last_name = user_data['lastName']
         new_member.first_name = user_data['name']
-        new_member.groups.addFor(4)
+        new_member.groups.add(4)
         new_member.save()
 
     def get_by_email(self, email):
@@ -46,3 +47,11 @@ class MemberDao:
         newRecord.value = record['value']
         newRecord.goal = goal
         newRecord.save()
+
+    def add_partial_goal(self, id, partial_goal):
+        member = self.get_by_id(id)
+        goal = member.goal_set.all()[0]
+        new_partial_goal = PartialGoal()
+        new_partial_goal.value = partial_goal['value']
+        new_partial_goal.goal = goal
+        new_partial_goal.save()

@@ -8,7 +8,7 @@ class ClassAttendanceManager:
     def sign_up_for_class(self, classId, email):
         user_dao = MemberDao()
         clazz = GroupClassDao().get_class_by_id(classId)
-        clazz.attendees.addFor(user_dao.get_by_email(email))
+        clazz.attendees.add(user_dao.get_by_email(email))
 
     def get_classes_for_user(self, email):
         user = MemberDao().get_by_email(email)

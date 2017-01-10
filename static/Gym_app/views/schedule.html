@@ -2,8 +2,8 @@
     <div class="table-container-inner">
         <table class="table" ng-controller="scheduleController">
             <thead>
-                <th class="hour">godz.</th>
-                <th ng-repeat="day in commonData.days track by $index" class="day-name">{{ day }}</th>
+            <th class="hour">godz.</th>
+            <th ng-repeat="day in commonData.days track by $index" class="day-name">{{ day }}</th>
             </thead>
             <tbody>
             <tr ng-repeat="(hour, list) in data.classes" class="schedule-row">
@@ -33,17 +33,19 @@
                                 <button type="button" ng-show="!storage.userData.isLoggedIn" class="btn btn-default"
                                         ng-click="openLoginDialog()">Zaloguj się
                                 </button>
-                                <button join-button attendees="class.attendees" class-id="{{ class.id }}"
-                                        user-classes="userClasses"
-                                        join-class="joinClass(class.id)" storage="storage"></button>
-                                <button resign-button attendees="class.attendees" class-id="{{ class.id }}"
-                                        user-classes="userClasses"
-                                        cancel-class="cancelClass(class.id)" storage="storage"></button>
-                                <button type="button"
-                                        ng-show="storage.userData.isLoggedIn && !storage.userData.isValidMember"
-                                        class="btn btn-default disabled" ng-click="openLoginDialog()">Nie posiadasz
-                                    ważnego karnetu
-                                </button>
+                                <div ng-show="storage.userData.group === 'members'">
+                                    <button join-button attendees="class.attendees" class-id="{{ class.id }}"
+                                            user-classes="userClasses"
+                                            join-class="joinClass(class.id)" storage="storage"></button>
+                                    <button resign-button attendees="class.attendees" class-id="{{ class.id }}"
+                                            user-classes="userClasses"
+                                            cancel-class="cancelClass(class.id)" storage="storage"></button>
+                                    <button type="button"
+                                            ng-show="storage.userData.isLoggedIn && !storage.userData.isValidMember"
+                                            class="btn btn-default disabled" ng-click="openLoginDialog()">Nie posiadasz
+                                        ważnego karnetu
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

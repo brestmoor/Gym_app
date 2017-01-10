@@ -9,7 +9,7 @@ trainerPersonalTraining.component('trainerMemberComp', {
         diets: '<'
     },
 
-    templateUrl: '/static/Gym_app/views/trainer/members/member.html',
+    templateUrl: '/static/Gym_app/views/trainer/members/trainerMember.html',
     controller: function (trainerMembersService) {
 
         this.labels = ["January", "February", "March", "April", "May", "June", "July"];

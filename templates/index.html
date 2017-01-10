@@ -25,8 +25,8 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a ui-sref="schedule">Grafik</a></li>
-                <li ng-show="storage.userData.group =='members'"><a href="#karnet">Karnet</a></li>
                 <li ng-show="storage.userData.group =='trainers'"><a ui-sref="trainerPersonalTraining">Treningi Personalne</a></li>
+                <li ng-show="storage.userData.group =='members'"><a ui-sref="personalTraining">Treningi Personalne</a></li>
             </ul>
             <div ng-controller="navbarLoginCtrl as $ctrl" ng-if="!storage.userData.isLoggedIn">
                 <form class="navbar-form navbar-right" ng-submit="$ctrl.logIn()">
@@ -43,12 +43,7 @@
                     </a>
                 </form>
             </div>
-            <div class="navbar-right" ng-if="storage.userData.isLoggedIn">
-                <ul class="nav navbar-nav">
-                    <li><a href="#/personalTraining"></a></li>
-                    <li><a ui-sref="personalTraining"><i class="glyphicon glyphicon-user icon-green"></i></a></li>
-                </ul>
-            </div>
+
         </div><!--/.navbar-collapse -->
     </div>
 </nav>
@@ -103,6 +98,7 @@
 <script src="/static/Gym_app/scripts/personalTraining/trainer/diets/trainerDietComp.js"></script>
 <script src="/static/Gym_app/scripts/personalTraining/trainer/diets/trainerDietsService.js"></script>
 <script src="/static/Gym_app/scripts/personalTraining/trainer/diets/newDietComp.js"></script>
+<script src="/static/Gym_app/scripts/personalTraining/member/memberCtrl.js"></script>
 <script src="/static/Gym_app/scripts/personalTraining/trainer/members/trainerMembersComp.js"></script>
 <script src="/static/Gym_app/scripts/personalTraining/trainer/members/trainerMembersService.js"></script>
 <script src="/static/Gym_app/scripts/personalTraining/trainer/members/trainerMemberComp.js"></script>

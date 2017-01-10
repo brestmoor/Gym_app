@@ -139,10 +139,18 @@ class SessionView(APIView):
         user = authenticate(username=email, password=password)
         if user is not None:
             login(request, user)
-            return HttpResponse(
-                json.dumps({'name': user.first_name, 'lastName': user.last_name, 'email': user.username,
-                            'isValidMember': True, 'group': user.groups.all()[0].name}),
-                status=status.HTTP_200_OK)
+            if user.groups.all()[0].mname == 'members':
+                user = MemberDao().get_by_email(user.username)
+                return HttpResponse(
+                    json.dumps({'name': user.first_name, 'lastName': user.last_name, 'email': user.username,
+                                'isValidMember': True, 'group': user.groups.all()[0].name, 'planId': user.plan.pk,
+                                'dietId': user.diet.pk, 'memberId': user.pk}),
+                    status=status.HTTP_200_OK)
+            else:
+                return HttpResponse(
+                    json.dumps({'name': user.first_name, 'lastName': user.last_name, 'email': user.username,
+                                'isValidMember': True, 'group': user.groups.all()[0].name}),
+                    status=status.HTTP_200_OK)
         else:
             return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
 
@@ -204,6 +212,16 @@ class DietsView(APIView):
         DietDao().createAndFill(request.data['diet'], request.data['dietName'], request.data['email'])
         return HttpResponse(status=status.HTTP_200_OK)
 
+    def delete(self, request, id=None):
+        if id is not None:
+            diet_dao = DietDao()
+            diet_dao.deleteById(id)
+            diets = diet_dao.getAllForTrainer(request.user.email)
+            diets_mapped = DjangoObjectsMapper(True).map(diets)
+            return HttpResponse(json.dumps(diets_mapped, default=CustomSerializer.serialize))
+        else:
+            return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
+
 
 class MembersView(APIView):
     def get(self, request, id=None):
@@ -235,4 +253,12 @@ class MembersView(APIView):
         if id is not None:
             member_dao = MemberDao()
             member_dao.add_record(id, request.data)
+            return HttpResponse(status=status.HTTP_200_OK)
+
+
+class PartialGoalsView(APIView):
+    def post(self, request, id=None):
+        if id is not None:
+            member_dao = MemberDao()
+            member_dao.add_partial_goal(id, request.data)
             return HttpResponse(status=status.HTTP_200_OK)

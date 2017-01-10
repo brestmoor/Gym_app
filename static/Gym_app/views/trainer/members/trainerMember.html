@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 
-<h4>{{ member.data.fullName }}</h4>
+<div class="row">
+    <div class="col-md-4 pull-left"><h4>{{ member.data.fullName }}</h4></div>
+    <div class="col-md-4 pull-right"><h4 class="pull-right">{{ member.goal.name }}</h4></div>
+</div>
 <canvas class="chart chart-linebis" chart-data="data"
         chart-labels="labels" chart-legend="true" chart-series="series" chart-options="options"></canvas>
 <div class="row" ng-init="changed = false">
@@ -34,7 +37,8 @@
                 class="glyphicon glyphicon-ok"></span>
         </button>
     </div>
-    <div class="col-md-1 pull-right"><input type="number"  style="width: 65px" class="form-control" ng-model="newRecord"></div>
+    <div class="col-md-1 pull-right"><input type="number" style="width: 65px" class="form-control" ng-model="newRecord">
+    </div>
     <div class="col-md-3 pull-right" style="padding-right: 0px">
         <p class="input-group">
             <input type="text" class="form-control" uib-datepicker-popup ng-model="newDate" is-open="popup2.opened"
@@ -52,10 +56,13 @@
     <div class="col-md-1 pull-right">
         <button class="btn btn-default pull-right"
                 style="width: 100%"
-                ng-click="addNewRecord()"><span
+                ng-click="addNewPartialGoal()"><span
                 class="glyphicon glyphicon-ok"></span>
         </button>
     </div>
-    <div class="col-md-1 pull-right"><input type="number" style="width: 65px" class="form-control" ng-model="newRecord"></div>
-
+    <div class="col-md-1 pull-right"><input type="number" style="width: 65px" class="form-control"
+                                            ng-model="newPartialGoal"></div>
+    <div class="col-md-2 pull-right">
+        <div class="pull-right" style="line-height: 34px"> nowy cel:</div>
+    </div>
 </div>

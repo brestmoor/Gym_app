@@ -50,17 +50,30 @@ trainerPersonalTraining.controller("trainerMemberCtrl", function ($scope, member
             date: $scope.newDate.toISOString().slice(0, 10),
             value: $scope.newRecord
         })
-    }
+    };
 
+    $scope.addNewPartialGoal = function () {
+        trainerMemberService.addPartialGoal(member.data.id, {
+            value: $scope.newPartialGoal
+        });
 
-    $scope.newDate = new Date();
-    $scope.newRecord = 0;
+        $scope.options.limitLines.push({
+                label: 'cel',
+                value: $scope.newPartialGoal,
+                color: 'rgba(0, 165, 255, .8)'
+            }
+        )
+    };
 
 
     $scope.submit = function () {
         trainerMembersService.updateMember(member.data)
     }
 
+
+    $scope.newDate = new Date();
+    $scope.newRecord = 0;
+    $scope.newPartialGoal = 0;
 
     $scope.dateOptions = {
         dateDisabled: false,
@@ -82,11 +95,24 @@ trainerPersonalTraining.controller("trainerMemberCtrl", function ($scope, member
     this.addNewRecord = function (id, record) {
         return $q(function (resolve, reject) {
             $http.post('/members/' + id.toString() + '/records/', record).then(function (response) {
-                resolve(angular.fromJson(response.data))
+                resolve()
             }, function (errorResponse) {
                 alert('Błąd');
                 reject(angular.fromJson(errorResponse.data))
             })
         })
     }
+
+    this.addPartialGoal = function (id, partialGoal) {
+        return $q(function (resolve, reject) {
+            $http.post('/members/' + id.toString() + '/partialGoals/', partialGoal).then(function (response) {
+                resolve()
+            }, function (errorResponse) {
+                alert('Błąd');
+                reject(angular.fromJson(errorResponse.data))
+            })
+        })
+    }
+
+
 }]);

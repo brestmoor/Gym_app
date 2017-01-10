@@ -26,3 +26,7 @@ class DietDao:
 
     def getById(self, id):
         return Diet.objects.get(pk=id)
+
+    def deleteById(self, id):
+        Diet.objects.get(pk=id).delete()
+

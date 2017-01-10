@@ -9,7 +9,6 @@ schedule.controller('scheduleLoginCtrl', function ($scope, loginService) {
 
     $ctrl.logIn = function () {
         loginService.logIn($ctrl.data).then(function () {
-            alert('ok')
         }, function (error) {
             alert(error)
         })

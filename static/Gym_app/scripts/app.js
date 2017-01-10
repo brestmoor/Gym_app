@@ -76,6 +76,15 @@ gymApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
                 }
             }
         })
+        .state('personalTraining.trainingPlan', {
+            url: '/personalTraining/plans/{planId}',
+            component: 'trainerPlanComp',
+            resolve: {
+                plan: function (trainerPlansService, $transition$) {
+                    return trainerPlansService.getPlan($transition$.params().planId);
+                }
+            }
+        })
         .state('trainerPersonalTraining.newTrainingPlan', {
             url: '/trainerPersonalTraining/plans/new/{planName}',
             component: 'newPlanComp',
@@ -97,6 +106,15 @@ gymApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
                 }
             }
         })
+        .state('personalTraining.diet', {
+            url: '/personalTraining/diets/{dietId}',
+            component: 'trainerDietComp',
+            resolve: {
+                diet: function (trainerDietsService, $transition$) {
+                    return trainerDietsService.getDiet($transition$.params().dietId);
+                }
+            }
+        })
         .state('trainerPersonalTraining.newDiet', {
             url: '/trainerPersonalTraining/diets/new/{dietName}',
             component: 'newDietComp',
@@ -109,7 +127,7 @@ gymApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
         .state('trainerPersonalTraining.member', {
             url: '/trainerPersonalTraining/members/{email}/trainer/{memberId}',
             controller: 'trainerMemberCtrl',
-            templateUrl: '/static/Gym_app/views/trainer/members/member.html',
+            templateUrl: '/static/Gym_app/views/trainer/members/trainerMember.html',
             resolve: {
                 member: function (trainerMembersService, $transition$) {
                     return trainerMembersService.getMember($transition$.params().memberId);
@@ -122,4 +140,14 @@ gymApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
                 }
             }
         })
-})
+        .state('personalTraining.member', {
+            url: '/personalTraining/members/{memberId}',
+            controller: 'memberCtrl',
+            templateUrl: '/static/Gym_app/views/member.html',
+            resolve: {
+                member: function (trainerMembersService, $transition$) {
+                    return trainerMembersService.getMember($transition$.params().memberId);
+                }
+            }
+        })
+});
